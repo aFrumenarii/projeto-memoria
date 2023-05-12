@@ -1,0 +1,42 @@
+section{
+  background: repeating-linear-gradient(rgb(2, 245, 79), rgb(255, 255, 255), rgb(94, 255, 0), azure, rgb(0, 255, 81), rgb(255, 255, 255)) ;
+  height: 100vh;
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+h1{
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  font-weight: 600;
+  color: aliceblue;
+
+}
+
+form{
+  background-color: aquamarine;
+  padding: 6rem;
+  border-radius: 8px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+input{
+  border: none;
+  border-bottom:1px solid gray;
+  background-color: transparent;
+  margin-bottom: 1rem;
+  height: 40px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: red;
+}
+
+input:focus{
+  outline: none;
+}

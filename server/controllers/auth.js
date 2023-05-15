@@ -29,25 +29,29 @@ export const registrarUsuário = (req, res) => {
 }
 
 export const autenticarUsuário = (req, res) => {
-  //check if user exists
-  const selectQuery = `SELECT * FROM usuarios WHERE username = ?`
-  db.query(selectQuery, [req.body.username], (err, data) => {
+  // Checando se o usuário existe
+  const selectQuery = `SELECT * FROM usuarios WHERE email = ?`
+  db.query(selectQuery, [req.body.email], (err, data) => {
+    
     if (err) return res.json(err);
-
     if (data.length === 0) {
-      // If user doesn't exist, return an error message
       return res.status(404).json({ message: "Usuário não encontrado." });
-    } else {
-      // If user exists, compare the passwords
-      const user = data[0]; // Assume there's only one user with this username
+    }
+    // Se usuário existir, compara as senhas
+    else { 
+      const user = data[0];
 
-      if (user.passwd === req.body.passwd) {
-        // Passwords match, return success
-        return res.status(200).json({ message: "Autenticação bem-sucedida." });
-      } else {
-        // Passwords don't match, return an error message
-        return res.status(401).json({ message: "Senha incorreta." });
-      }
+      // Usa o bcrypt para fazer a comparação da senha enviada pelo front-end com a senha do banco de dados que se encontra criptografada
+      bcrypt.compare(req.body.passwd, user.passwd, (err, result) => {
+        if(err) return err; 
+        if (result) {
+          return res.json({message: "usuário foi autenticado com sucesso"})
+        }
+        if(!result) {
+          return res.json({message: "usuário ou senha incorreto"})
+        }
+      })
+
     }
   })
 }

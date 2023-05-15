@@ -4,7 +4,7 @@ import styles from './Login.module.css'
 
 export const Login = () => {
   const [inputs, setInputs] = useState({
-    username:"",
+    email:"",
     passwd:"",
   })
 
@@ -13,8 +13,6 @@ export const Login = () => {
   const handleChange = e => {
     setInputs(prev=>({...prev,[e.target.name]:e.target.value}))
   }
-
-  let mensagem = ''
 
   const handleClick = async e => {
     try {
@@ -31,9 +29,10 @@ export const Login = () => {
     <section>
       <h1>Login</h1>
       <form>
-        <input type="text" name='username' onChange={handleChange} placeholder="usuário ou email" />
+        <input type="email" name='email' onChange={handleChange} placeholder="email" />
         <input type="password" name='passwd' onChange={handleChange} placeholder="palavra-chave" />
         <p>{mensagens}</p>
+        {mensagens === 'usuário foi autenticado com sucesso' ? console.log(true) : console.log(false) }
         <button onClick={handleClick} type="submit">Enviar</button>
       </form>
     </section>
